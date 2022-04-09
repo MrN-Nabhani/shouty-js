@@ -1,17 +1,21 @@
-const { Given, When, Then } = require('cucumber')
-const assert = require('assert')
+const assert = require('assert');
+const { Given, When, Then, Before } = require('cucumber')
+const {Person, Network } = require('../../src/shouty');
 
-Given('Lucy is located {int}m from Sean', function (distance) {
-  this.lucy = new Person
-  this.sean = new Person
-  this.lucy.moveTo(distance)
+Before(function() {
+  this.people = {};
+  this.network = new Network();
+});
+
+Given('a person named {word}', function (name) {
+  this.people = {...this.people, [name]: new Person(this.network)};
 })
 
-When('Sean shouts {string}', function (message) {
-  this.sean.shout(message)
-  this.message = message
+When('{word} shouts {string}', function (name, message) {
+  this.people[name].shout(message);
+  this.message = message;
 })
 
-Then('Lucy hears Sean’s message', function () {
-  assert.deepEqual(this.lucy.messagesHeard(), [this.message])
+Then('{word} hears {word}’s message', function (name, _shouterName) {
+  assert.deepEqual(this.people[name].messagesHeard(), [this.message])
 })
