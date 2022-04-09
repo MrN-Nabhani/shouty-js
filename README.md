@@ -15,3 +15,5 @@ The purpose of feature files is to create readable specifications that can be un
 * Store test data in properties to avoid duplication.
 * Don't think about the implementation details when writing tests, instead Test with simple solutions to identify issues with the tests.
 * Make step definitions short such that the plain-language description of the domain in the Gherkin step should be close to the domain model in the code.
+* Maintain a "living document" by feeding gherkin documentation into the implementation and vise-versa.
+* Identify when an expression is essential or incidental to the rule illustrated by thinking of the context of the scenario.
